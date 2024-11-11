@@ -31,6 +31,10 @@ public class CalculateService {
 		Product product = products.findProductByName(productName);
 		Promotion promotion = (product != null) ? promotions.findPromotionByName(product.getPromotion()) : null;
 
+		return getAdditionalQuantity(quantity, product, promotion);
+	}
+
+	private static int getAdditionalQuantity(int quantity, Product product, Promotion promotion) {
 		if (promotion != null && promotion.isApplyPromotion(quantity, DateTimes.now())) {
 			int additionalQuantity = 0;
 			additionalQuantity = (quantity / promotion.getBuy()) * promotion.getGet();
