@@ -1,6 +1,7 @@
 package store.util;
 
-import static store.constant.PromotionType.*;
+import static store.constant.ErrorMessage.NON_EXIST_PRODUCT;
+import static store.constant.PromotionType.CARBONATE_DRINK;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import store.model.domain.customer.Customer;
@@ -30,7 +31,10 @@ public class PromotionHandler {
 	}
 
 	private static Promotion findPromotion(Promotions promotions, Product product) {
-		return (product != null) ? promotions.findPromotionByName(product.getPromotion()) : null;
+		if (product == null) {
+			throw new IllegalArgumentException(NON_EXIST_PRODUCT.getMessage());
+		}
+		return promotions.findPromotionByName(product.getPromotion());
 	}
 
 	private static void processPromotion(Customer customer, Product product, int quantity, Promotion promotion) {
