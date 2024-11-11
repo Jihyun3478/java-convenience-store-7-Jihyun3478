@@ -26,6 +26,10 @@ public class OutputView {
 			productName, nonEligibleQuantity);
 	}
 
+	public static void checkMembershipDiscount() {
+		System.out.print(PROMPT_MEMBERSHIP_PROMOTION.getMessage());
+	}
+
 	public static void printError(String errorMessage) {
 		System.out.println(NEW_LINE + errorMessage);
 	}

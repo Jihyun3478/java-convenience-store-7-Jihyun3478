@@ -45,6 +45,7 @@ public class StoreController {
 
 		PromotionHandler.handlePromotionMessages(customer, products, promotions);
 		InventoryManager.decreaseProductQuantities(customer, products);
+		ReceiptGenerator.generateReceipt(customer, products, promotions, calculateService);
 	}
 
 	private Customer getCustomerBuyProduct(Products products) {

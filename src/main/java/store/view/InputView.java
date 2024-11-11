@@ -15,6 +15,10 @@ public class InputView {
 		return input();
 	}
 
+	public static String checkDiscount() {
+		return input();
+	}
+
 	private static String input() {
 		return Console.readLine();
 	}
