@@ -17,7 +17,7 @@ public class FileReader {
 				fileLines.add(fileLine);
 			}
 		} catch (IOException e) {
-			throw new IllegalStateException(NON_EXIST_FILE.getMessage());
+			throw new IllegalArgumentException(NON_EXIST_FILE.getMessage());
 		}
 		return fileLines;
 	}
