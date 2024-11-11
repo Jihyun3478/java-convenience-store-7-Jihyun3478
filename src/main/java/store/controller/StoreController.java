@@ -1,5 +1,7 @@
 package store.controller;
 
+import static store.constant.AnswerConstant.ANSWER_YES;
+
 import java.util.Map;
 
 import store.constant.file.FilePath;
@@ -52,7 +54,7 @@ public class StoreController {
 	private boolean shouldProceed() {
 		OutputView.promptContinueMessage();
 		String checkProceed = InputView.checkProceedPurchase();
-		return checkProceed.equals("Y");
+		return checkProceed.equals(ANSWER_YES);
 	}
 
 	private Customer getCustomerBuyProduct(Products products) {

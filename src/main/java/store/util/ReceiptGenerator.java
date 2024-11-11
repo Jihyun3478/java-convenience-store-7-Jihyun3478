@@ -1,5 +1,7 @@
 package store.util;
 
+import static store.constant.AnswerConstant.*;
+
 import store.model.domain.customer.Customer;
 import store.model.domain.product.Products;
 import store.model.domain.product.Promotions;
@@ -22,7 +24,7 @@ public class ReceiptGenerator {
 
 	private static int applyMembershipDiscount(int discountedTotal) {
 		OutputView.checkMembershipDiscount();
-		if (InputView.checkDiscount().equals("Y")) {
+		if (InputView.checkDiscount().equals(ANSWER_YES)) {
 			return new MembershipDiscount().discount(discountedTotal);
 		}
 		return 0;

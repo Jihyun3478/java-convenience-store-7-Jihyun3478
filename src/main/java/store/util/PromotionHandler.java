@@ -1,5 +1,6 @@
 package store.util;
 
+import static store.constant.AnswerConstant.*;
 import static store.constant.message.ErrorMessage.NON_EXIST_PRODUCT;
 import static store.constant.promotion.PromotionType.CARBONATE_DRINK;
 
@@ -53,7 +54,7 @@ public class PromotionHandler {
 
 		displayPromotionMessages(product, applicableQuantity, nonApplicableQuantity);
 
-		if (InputView.checkProceedPurchase().equalsIgnoreCase("Y")) {
+		if (InputView.checkProceedPurchase().equalsIgnoreCase(ANSWER_YES)) {
 			addGiftAndAdditionalProducts(customer, product, applicableQuantity, nonApplicableQuantity);
 		}
 	}
@@ -63,7 +64,7 @@ public class PromotionHandler {
 
 		if (additionalQuantity > 0) {
 			OutputView.promptPromotionApplicableMessage(product.getName(), additionalQuantity);
-			if (InputView.checkProceedPurchase().equalsIgnoreCase("Y")) {
+			if (InputView.checkProceedPurchase().equalsIgnoreCase(ANSWER_YES)) {
 				customer.addAdditionalProduct(product.getName(), additionalQuantity);
 				customer.addGiftProduct(product.getName(), additionalQuantity);
 			}
