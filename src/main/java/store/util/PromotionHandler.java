@@ -12,48 +12,45 @@ import store.view.InputView;
 import store.view.OutputView;
 
 public class PromotionHandler {
+
 	public static void handlePromotionMessages(Customer customer, Products products, Promotions promotions) {
 		customer.getBuyingProduct().forEach((productName, quantity) -> {
-			Product product = products.findProductByName(productName);
-			Promotion promotion = (product != null) ? promotions.findPromotionByName(product.getPromotion()) : null;
-
-			if (promotion != null && promotion.isApplyPromotion(quantity, DateTimes.now())) {
-				handlePromotion(customer, product, quantity, promotion);
-			}
+			handleSingleProductPromotion(customer, products, promotions, productName, quantity);
 		});
 	}
 
-	private static void handlePromotion(Customer customer, Product product, int quantity, Promotion promotion) {
-		if (promotion.getName().equals(CARBONATE_DRINK.getPromotionName())) {
+	private static void handleSingleProductPromotion(Customer customer, Products products, Promotions promotions,
+		String productName, int quantity) {
+		Product product = products.findProductByName(productName);
+		Promotion promotion = findPromotion(promotions, product);
+
+		if (promotion != null && promotion.isApplyPromotion(quantity, DateTimes.now())) {
+			processPromotion(customer, product, quantity, promotion);
+		}
+	}
+
+	private static Promotion findPromotion(Promotions promotions, Product product) {
+		return (product != null) ? promotions.findPromotionByName(product.getPromotion()) : null;
+	}
+
+	private static void processPromotion(Customer customer, Product product, int quantity, Promotion promotion) {
+		if (CARBONATE_DRINK.getPromotionName().equals(promotion.getName())) {
 			handleCarbonatePromotion(customer, product, quantity, promotion);
-		} else {
+		}
+		if (!CARBONATE_DRINK.getPromotionName().equals(promotion.getName())) {
 			handleOtherPromotions(customer, product, quantity, promotion);
 		}
 	}
 
 	private static void handleCarbonatePromotion(Customer customer, Product product, int quantity,
 		Promotion promotion) {
-		int buyQuantity = promotion.getBuy();
-		int getQuantity = promotion.getGet();
+		int applicableQuantity = calculateApplicableQuantity(promotion, quantity);
+		int nonApplicableQuantity = calculateNonApplicableQuantity(promotion, quantity);
 
-		int applicablePromotionCount = quantity / buyQuantity;
-		int applicableQuantity = applicablePromotionCount * getQuantity;
+		displayPromotionMessages(product, applicableQuantity, nonApplicableQuantity);
 
-		int nonApplicableQuantity = quantity % buyQuantity;
-
-		if (nonApplicableQuantity > 0 && applicablePromotionCount == 0) {
-			OutputView.promptPromotionExceedsMessage(product.getName(), nonApplicableQuantity);
-		}
-		if (applicablePromotionCount > 0) {
-			OutputView.promptPromotionApplicableMessage(product.getName(), applicableQuantity);
-		}
 		if (InputView.checkProceedPurchase().equalsIgnoreCase("Y")) {
-			if (applicableQuantity > 0) {
-				customer.addGiftProduct(product.getName(), applicableQuantity);
-			}
-			if (nonApplicableQuantity > 0) {
-				customer.addAdditionalProduct(product.getName(), nonApplicableQuantity);
-			}
+			addGiftAndAdditionalProducts(customer, product, applicableQuantity, nonApplicableQuantity);
 		}
 	}
 
@@ -66,6 +63,33 @@ public class PromotionHandler {
 				customer.addAdditionalProduct(product.getName(), additionalQuantity);
 				customer.addGiftProduct(product.getName(), additionalQuantity);
 			}
+		}
+	}
+
+	private static int calculateApplicableQuantity(Promotion promotion, int quantity) {
+		return (quantity / promotion.getBuy()) * promotion.getGet();
+	}
+
+	private static int calculateNonApplicableQuantity(Promotion promotion, int quantity) {
+		return quantity % promotion.getBuy();
+	}
+
+	private static void displayPromotionMessages(Product product, int applicableQuantity, int nonApplicableQuantity) {
+		if (nonApplicableQuantity > 0 && applicableQuantity == 0) {
+			OutputView.promptPromotionExceedsMessage(product.getName(), nonApplicableQuantity);
+		}
+		if (applicableQuantity > 0) {
+			OutputView.promptPromotionApplicableMessage(product.getName(), applicableQuantity);
+		}
+	}
+
+	private static void addGiftAndAdditionalProducts(Customer customer, Product product, int applicableQuantity,
+		int nonApplicableQuantity) {
+		if (applicableQuantity > 0) {
+			customer.addGiftProduct(product.getName(), applicableQuantity);
+		}
+		if (nonApplicableQuantity > 0) {
+			customer.addAdditionalProduct(product.getName(), nonApplicableQuantity);
 		}
 	}
 }
