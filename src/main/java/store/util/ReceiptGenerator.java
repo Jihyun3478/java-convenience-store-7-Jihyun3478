@@ -16,6 +16,8 @@ public class ReceiptGenerator {
 
 		int giftProductTotalPrice = calculateService.calculateGiftProductTotalPrice(customer, products);
 		int finalPrice = totalPrice + giftProductTotalPrice - promotionDiscount - membershipDiscount;
+
+		OutputView.printReceipt(customer, promotionDiscount, membershipDiscount, finalPrice, products);
 	}
 
 	private static int applyMembershipDiscount(int discountedTotal) {

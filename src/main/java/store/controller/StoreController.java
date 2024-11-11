@@ -31,6 +31,7 @@ public class StoreController {
 
 			while (isProceed) {
 				processBuying(products, promotions);
+				isProceed = shouldProceed();
 				OutputView.printNewLine();
 			}
 		} catch (IllegalArgumentException e) {
@@ -48,6 +49,12 @@ public class StoreController {
 		ReceiptGenerator.generateReceipt(customer, products, promotions, calculateService);
 	}
 
+	private boolean shouldProceed() {
+		OutputView.promptContinueMessage();
+		String checkProceed = InputView.checkProceedPurchase();
+		return checkProceed.equals("Y");
+	}
+
 	private Customer getCustomerBuyProduct(Products products) {
 		while (true) {
 			try {
@@ -60,3 +67,4 @@ public class StoreController {
 		}
 	}
 }
+
