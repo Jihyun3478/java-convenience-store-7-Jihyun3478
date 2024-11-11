@@ -12,6 +12,10 @@ public class OutputView {
 		System.out.println(products.toString());
 	}
 
+	public static void promptBuyProductMessage() {
+		System.out.println(PROMPT_BUY_PRODUCT.getMessage());
+	}
+
 	public static void printError(String errorMessage) {
 		System.out.println(NEW_LINE + errorMessage);
 	}

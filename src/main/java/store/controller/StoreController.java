@@ -6,11 +6,7 @@ import store.constant.file.FilePath;
 import store.model.domain.customer.Customer;
 import store.model.domain.product.Products;
 import store.model.domain.product.Promotions;
-import store.service.CalculateService;
 import store.service.FileService;
-import store.util.InventoryManager;
-import store.util.PromotionHandler;
-import store.util.ReceiptGenerator;
 import store.view.InputView;
 import store.view.OutputView;
 
@@ -39,6 +35,19 @@ public class StoreController {
 
 	private void processBuying(Products products) {
 		OutputView.promptCurrentStock(products);
+		Customer customer = getCustomerBuyProduct(products);
+	}
+
+	private Customer getCustomerBuyProduct(Products products) {
+		while (true) {
+			try {
+				OutputView.promptBuyProductMessage();
+				Map<String, Integer> buyingProduct = InputView.buyProduct();
+				return new Customer(buyingProduct, products);
+			} catch (IllegalArgumentException e) {
+				OutputView.printError(e.getMessage());
+			}
+		}
 	}
 }
 
