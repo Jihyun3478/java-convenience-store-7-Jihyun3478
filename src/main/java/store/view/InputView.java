@@ -11,6 +11,10 @@ public class InputView {
 		return Parser.parseBuyProduct(buyingProduct);
 	}
 
+	public static String checkProceedPurchase() {
+		return input();
+	}
+
 	private static String input() {
 		return Console.readLine();
 	}

@@ -7,6 +7,7 @@ import store.model.domain.customer.Customer;
 import store.model.domain.product.Products;
 import store.model.domain.product.Promotions;
 import store.service.FileService;
+import store.util.PromotionHandler;
 import store.view.InputView;
 import store.view.OutputView;
 
@@ -24,7 +25,7 @@ public class StoreController {
 			Promotions promotions = fileService.createPromotions(FilePath.PROMOTION_FILE_PATH.getFilePath());
 
 			while (isProceed) {
-				processBuying(products);
+				processBuying(products, promotions);
 				OutputView.printNewLine();
 			}
 		} catch (IllegalArgumentException e) {
@@ -33,9 +34,11 @@ public class StoreController {
 		}
 	}
 
-	private void processBuying(Products products) {
+	private void processBuying(Products products, Promotions promotions) {
 		OutputView.promptCurrentStock(products);
 		Customer customer = getCustomerBuyProduct(products);
+
+		PromotionHandler.handlePromotionMessages(customer, products, promotions);
 	}
 
 	private Customer getCustomerBuyProduct(Products products) {
