@@ -1,9 +1,8 @@
 package store.model.domain.customer;
 
 import static org.assertj.core.api.Assertions.*;
-import static store.constant.ErrorMessage.*;
+import static store.constant.message.ErrorMessage.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

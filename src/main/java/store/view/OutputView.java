@@ -1,9 +1,9 @@
 package store.view;
 
-import static store.constant.OutputMessage.PROMPT_CURRENT_STOCK;
-import static store.constant.OutputMessage.PROMPT_BUY_PRODUCT;
-import static store.constant.OutputMessage.PROMPT_MEMBERSHIP_PROMOTION;
-import static store.constant.OutputMessage.PROMPT_BUYING_PROCEED;
+import static store.constant.message.OutputMessage.PROMPT_CURRENT_STOCK;
+import static store.constant.message.OutputMessage.PROMPT_BUY_PRODUCT;
+import static store.constant.message.OutputMessage.PROMPT_MEMBERSHIP_PROMOTION;
+import static store.constant.message.OutputMessage.PROMPT_BUYING_PROCEED;
 
 import store.model.domain.customer.Customer;
 import store.model.domain.product.Products;

@@ -1,7 +1,7 @@
 package store.util;
 
-import static store.constant.ErrorMessage.NON_EXIST_PRODUCT;
-import static store.constant.PromotionType.CARBONATE_DRINK;
+import static store.constant.message.ErrorMessage.NON_EXIST_PRODUCT;
+import static store.constant.promotion.PromotionType.CARBONATE_DRINK;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import store.model.domain.customer.Customer;

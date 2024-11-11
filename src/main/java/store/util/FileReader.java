@@ -1,6 +1,6 @@
 package store.util;
 
-import static store.constant.ErrorMessage.NON_EXIST_FILE;
+import static store.constant.message.ErrorMessage.NON_EXIST_FILE;
 
 import java.io.BufferedReader;
 import java.io.File;

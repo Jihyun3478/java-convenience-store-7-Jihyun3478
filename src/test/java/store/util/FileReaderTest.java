@@ -3,7 +3,7 @@ package store.util;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import static store.constant.ErrorMessage.NON_EXIST_FILE;
+import static store.constant.message.ErrorMessage.NON_EXIST_FILE;
 
 import java.io.File;
 import java.util.List;

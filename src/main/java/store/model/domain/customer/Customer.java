@@ -1,8 +1,8 @@
 package store.model.domain.customer;
 
-import static store.constant.ErrorMessage.INVALID_FORMAT;
-import static store.constant.ErrorMessage.NON_EXIST_PRODUCT;
-import static store.constant.ErrorMessage.OVER_STOCK_QUANTITY;
+import static store.constant.message.ErrorMessage.INVALID_FORMAT;
+import static store.constant.message.ErrorMessage.NON_EXIST_PRODUCT;
+import static store.constant.message.ErrorMessage.OVER_STOCK_QUANTITY;
 
 import java.util.HashMap;
 import java.util.Map;

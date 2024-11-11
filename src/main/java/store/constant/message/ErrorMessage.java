@@ -1,4 +1,4 @@
-package store.constant;
+package store.constant.message;
 
 public enum ErrorMessage {
 	NON_EXIST_FILE("[ERROR] 존재하지 않는 파일입니다."),

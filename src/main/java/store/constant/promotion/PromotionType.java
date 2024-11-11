@@ -1,4 +1,4 @@
-package store.constant;
+package store.constant.promotion;
 
 public enum PromotionType {
 	CARBONATE_DRINK("탄산2+1"),
