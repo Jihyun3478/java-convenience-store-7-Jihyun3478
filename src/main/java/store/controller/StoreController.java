@@ -6,16 +6,21 @@ import store.constant.file.FilePath;
 import store.model.domain.customer.Customer;
 import store.model.domain.product.Products;
 import store.model.domain.product.Promotions;
+import store.service.CalculateService;
 import store.service.FileService;
+import store.util.InventoryManager;
 import store.util.PromotionHandler;
+import store.util.ReceiptGenerator;
 import store.view.InputView;
 import store.view.OutputView;
 
 public class StoreController {
 	private final FileService fileService;
+	private final CalculateService calculateService;
 
-	public StoreController(FileService fileService) {
+	public StoreController(FileService fileService, CalculateService calculateService) {
 		this.fileService = fileService;
+		this.calculateService = calculateService;
 	}
 
 	public void start() {
@@ -39,6 +44,7 @@ public class StoreController {
 		Customer customer = getCustomerBuyProduct(products);
 
 		PromotionHandler.handlePromotionMessages(customer, products, promotions);
+		InventoryManager.decreaseProductQuantities(customer, products);
 	}
 
 	private Customer getCustomerBuyProduct(Products products) {
@@ -53,4 +59,3 @@ public class StoreController {
 		}
 	}
 }
-
